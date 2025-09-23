@@ -1,0 +1,13 @@
+spring:
+  r2dbc:
+    url: "r2dbc:mysql://root:admin@localhost:3306/budget_manager?ssl=true"
+  sql:
+    init:
+      mode: never
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG

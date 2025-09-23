@@ -5,3 +5,8 @@ pluginManagement {
 	}
 }
 rootProject.name = 'budget_manager'
+include 'configuration'
+include 'entrypoints'
+include 'core'
+include 'infrastructure'
+
