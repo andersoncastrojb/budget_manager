@@ -1,6 +1,6 @@
 package co.com.soft.entity;
 
-import co.com.soft.enums.IncomeType;
+import co.com.soft.enums.AccountType;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -11,15 +11,14 @@ import org.springframework.data.relational.core.mapping.Column;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table("incomes")
-public class Income {
+@Table("accounts")
+public class AccountEntity {
     @Id
     private Long id;
 
     @Column("id_user")
     private Integer idUser;
-    private IncomeType type;
-    private Long value;
-    private String description;
-    private String date;
+    private String name;
+    private AccountType type;
+    private Long balance;
 }

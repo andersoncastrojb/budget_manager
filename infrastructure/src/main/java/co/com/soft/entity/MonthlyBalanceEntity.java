@@ -10,7 +10,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 @ToString
 @Table("monthly_balances")
-public class MonthlyBalance {
+public class MonthlyBalanceEntity {
     @Id
     private Long id;
 

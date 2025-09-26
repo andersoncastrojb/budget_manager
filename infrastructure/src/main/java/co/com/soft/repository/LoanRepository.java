@@ -1,7 +1,7 @@
 package co.com.soft.repository;
 
-import co.com.soft.entity.Loan;
+import co.com.soft.entity.LoanEntity;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-public interface LoanRepository extends ReactiveCrudRepository<Loan, Long> {
+public interface LoanRepository extends ReactiveCrudRepository<LoanEntity, Long> {
 }

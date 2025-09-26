@@ -1,7 +1,7 @@
 package co.com.soft.repository;
 
-import co.com.soft.entity.Account;
+import co.com.soft.entity.AccountEntity;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-public interface AccountRepository extends ReactiveCrudRepository<Account, Long> {
+public interface AccountRepository extends ReactiveCrudRepository<AccountEntity, Long> {
 }

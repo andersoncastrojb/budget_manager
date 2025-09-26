@@ -9,4 +9,5 @@ include 'configuration'
 include 'entrypoints'
 include 'core'
 include 'infrastructure'
+include 'utilities'
 

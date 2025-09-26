@@ -26,7 +26,7 @@ CREATE TABLE incomes (
     type VARCHAR(64),
     value BIGINT,
     description VARCHAR(512),
-    date VARCHAR(64),
+    date TIMESTAMP,
     FOREIGN KEY (id_user) REFERENCES users(id)
 );
 
@@ -36,8 +36,8 @@ CREATE TABLE loans (
     id_user INT,
     lender VARCHAR(512),
     amount BIGINT,
-    loan_date VARCHAR(64),
-    limit_to_pay_date VARCHAR(64),
+    loan_date TIMESTAMP,
+    limit_to_pay_date TIMESTAMP,
     status VARCHAR(64),
     FOREIGN KEY (id_user) REFERENCES users(id)
 );
@@ -49,8 +49,8 @@ CREATE TABLE fixed_expenses (
     amount BIGINT,
     description VARCHAR(512),
     frequency VARCHAR(64),
-    start_date VARCHAR(64),
-    end_date VARCHAR(64),
+    start_date TIMESTAMP,
+    end_date TIMESTAMP,
     FOREIGN KEY (id_user) REFERENCES users(id)
 );
 

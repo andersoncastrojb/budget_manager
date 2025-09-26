@@ -1,28 +1,30 @@
 package co.com.soft.entity;
 
-import co.com.soft.enums.PayStatus;
+import co.com.soft.enums.FrequencyToPay;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.data.relational.core.mapping.Column;
 
+import java.sql.Timestamp;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table("loans")
-public class Loan {
+@Table("fixed_expenses")
+public class FixedExpenseEntity {
     @Id
     private Long id;
 
     @Column("id_user")
     private Integer idUser;
-    private String lender;
     private Long amount;
-    @Column("loan_date")
-    private String loanDate;
-    @Column("limit_to_pay_date")
-    private String limitToPayDate;
-    private PayStatus status;
+    private String description;
+    private FrequencyToPay frequency;
+    @Column("start_date")
+    private Timestamp startDate;
+    @Column("end_date")
+    private Timestamp endDate;
 }
