@@ -11,7 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("users")
 public class UserEntity {
     @Id
-    private Integer id;
+    private Long id;
     private String name;
     private String email;
     private String password;

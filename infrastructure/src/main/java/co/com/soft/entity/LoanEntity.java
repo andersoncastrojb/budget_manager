@@ -19,7 +19,7 @@ public class LoanEntity {
     private Long id;
 
     @Column("id_user")
-    private Integer idUser;
+    private Long idUser;
     private String lender;
     private Long amount;
     @Column("loan_date")

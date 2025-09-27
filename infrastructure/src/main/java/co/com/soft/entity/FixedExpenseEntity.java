@@ -19,7 +19,7 @@ public class FixedExpenseEntity {
     private Long id;
 
     @Column("id_user")
-    private Integer idUser;
+    private Long idUser;
     private Long amount;
     private String description;
     private FrequencyToPay frequency;

@@ -8,7 +8,7 @@ import lombok.*;
 @ToString
 public class MonthlyBalance {
     private Long id;
-    private Integer idUser;
+    private Long idUser;
     private Integer month;
     private Integer year;
     private Long totalIncomes;

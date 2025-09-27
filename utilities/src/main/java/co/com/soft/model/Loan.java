@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 public class Loan {
     private Long id;
-    private Integer idUser;
+    private Long idUser;
     private String lender;
     private Long amount;
     private LocalDateTime loanDate;

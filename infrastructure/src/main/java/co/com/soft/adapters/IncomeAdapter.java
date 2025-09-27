@@ -1,10 +1,13 @@
+
 package co.com.soft.adapters;
+import org.springframework.stereotype.Component;
 
 import co.com.soft.entity.IncomeEntity;
 import co.com.soft.model.Income;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+@Component
 public class IncomeAdapter {
     public static Income toModel(IncomeEntity entity) {
         if (entity == null) return null;

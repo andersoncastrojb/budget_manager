@@ -15,7 +15,7 @@ public class MonthlyBalanceEntity {
     private Long id;
 
     @Column("id_user")
-    private Integer idUser;
+    private Long idUser;
     private Integer month;
     private Integer year;
     @Column("total_incomes")

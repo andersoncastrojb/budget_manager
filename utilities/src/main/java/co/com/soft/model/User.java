@@ -1,16 +1,14 @@
 package co.com.soft.model;
 
-import co.com.soft.enums.AccountType;
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Account {
+public class User {
     private Long id;
-    private Integer idUser;
     private String name;
-    private AccountType type;
-    private Long balance;
+    private String email;
+    private String password;
 }

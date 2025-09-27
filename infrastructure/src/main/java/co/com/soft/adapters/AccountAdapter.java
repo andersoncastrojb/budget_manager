@@ -1,8 +1,11 @@
+
 package co.com.soft.adapters;
+import org.springframework.stereotype.Component;
 
 import co.com.soft.entity.AccountEntity;
 import co.com.soft.model.Account;
 
+@Component
 public class AccountAdapter {
     public static Account toModel(AccountEntity entity) {
         if (entity == null) return null;

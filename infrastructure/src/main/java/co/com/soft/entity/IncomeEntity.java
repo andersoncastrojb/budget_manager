@@ -19,7 +19,7 @@ public class IncomeEntity {
     private Long id;
 
     @Column("id_user")
-    private Integer idUser;
+    private Long idUser;
     private IncomeType type;
     private Long value;
     private String description;

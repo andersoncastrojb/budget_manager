@@ -1,4 +1,6 @@
+
 package co.com.soft.adapters;
+import org.springframework.stereotype.Component;
 
 import co.com.soft.entity.LoanEntity;
 import co.com.soft.model.Loan;
@@ -6,6 +8,7 @@ import co.com.soft.model.Loan;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+@Component
 public class LoanAdapter {
     public static Loan toModel(LoanEntity entity) {
         if (entity == null) return null;

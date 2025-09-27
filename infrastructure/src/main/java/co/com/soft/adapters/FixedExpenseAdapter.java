@@ -1,10 +1,13 @@
+
 package co.com.soft.adapters;
+import org.springframework.stereotype.Component;
 
 import co.com.soft.entity.FixedExpenseEntity;
 import co.com.soft.model.FixedExpense;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+@Component
 public class FixedExpenseAdapter {
     public static FixedExpense toModel(FixedExpenseEntity entity) {
         if (entity == null) return null;

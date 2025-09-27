@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 public class FixedExpense {
     private Long id;
-    private Integer idUser;
+    private Long idUser;
     private Long amount;
     private String description;
     private FrequencyToPay frequency;

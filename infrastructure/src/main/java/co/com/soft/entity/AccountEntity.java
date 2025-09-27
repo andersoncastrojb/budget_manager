@@ -17,7 +17,7 @@ public class AccountEntity {
     private Long id;
 
     @Column("id_user")
-    private Integer idUser;
+    private Long idUser;
     private String name;
     private AccountType type;
     private Long balance;

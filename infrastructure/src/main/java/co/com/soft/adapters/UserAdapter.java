@@ -1,8 +1,11 @@
+
 package co.com.soft.adapters;
+import org.springframework.stereotype.Component;
 
 import co.com.soft.entity.UserEntity;
 import co.com.soft.model.User;
 
+@Component
 public class UserAdapter {
     public static User toModel(UserEntity entity) {
         if (entity == null) return null;

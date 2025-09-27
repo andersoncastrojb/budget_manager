@@ -1,8 +1,11 @@
+
 package co.com.soft.adapters;
+import org.springframework.stereotype.Component;
 
 import co.com.soft.entity.MonthlyBalanceEntity;
 import co.com.soft.model.MonthlyBalance;
 
+@Component
 public class MonthlyBalanceAdapter {
     public static MonthlyBalance toModel(MonthlyBalanceEntity entity) {
         if (entity == null) return null;
