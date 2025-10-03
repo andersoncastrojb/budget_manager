@@ -22,13 +22,17 @@ public class MonthlyBalanceService implements MonthlyBalanceUseCase {
     }
 
     @Override
+    public Mono<MonthlyBalance> getMonthlyBalanceById(Long id) {
+        return monthlyBalanceRepository.findById(id)
+                .map(entityResult -> monthlyBalanceAdapter.toModel(entityResult));
+    }
+
     public Mono<MonthlyBalance> createMonthlyBalance(MonthlyBalance monthlyBalance) {
         MonthlyBalanceEntity entity = monthlyBalanceAdapter.toEntity(monthlyBalance);
     return monthlyBalanceRepository.save(entity)
         .map(entityResult -> monthlyBalanceAdapter.toModel(entityResult));
     }
 
-    @Override
     public Mono<MonthlyBalance> updateMonthlyBalance(Long id, MonthlyBalance monthlyBalance) {
         return monthlyBalanceRepository.findById(id)
                 .flatMap(existing -> {
@@ -39,18 +43,10 @@ public class MonthlyBalanceService implements MonthlyBalanceUseCase {
                 .map(entityResult -> monthlyBalanceAdapter.toModel(entityResult));
     }
 
-    @Override
     public Mono<Void> deleteMonthlyBalance(Long id) {
         return monthlyBalanceRepository.deleteById(id);
     }
 
-    @Override
-    public Mono<MonthlyBalance> getMonthlyBalanceById(Long id) {
-    return monthlyBalanceRepository.findById(id)
-        .map(entityResult -> monthlyBalanceAdapter.toModel(entityResult));
-    }
-
-    @Override
     public Flux<MonthlyBalance> getAllMonthlyBalances() {
     return monthlyBalanceRepository.findAll()
         .map(entityResult -> monthlyBalanceAdapter.toModel(entityResult));
