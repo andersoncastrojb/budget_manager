@@ -1,5 +1,9 @@
 package co.com.soft.controller;
 
+import co.com.soft.dto.MonthlyBalanceCreateDTO;
+import co.com.soft.dto.MonthlyBalanceDTO;
+import co.com.soft.dto.MonthlyBalanceUpdateDTO;
+import co.com.soft.mapper.MonthlyBalanceMapper;
 import co.com.soft.model.MonthlyBalance;
 import co.com.soft.usecase.MonthlyBalanceUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +22,16 @@ public class MonthlyBalanceController {
     }
 
     @PostMapping
-    public Mono<MonthlyBalance> createMonthlyBalance(@RequestBody MonthlyBalance monthlyBalance) {
-        return monthlyBalanceUseCase.createMonthlyBalance(monthlyBalance);
+    public Mono<MonthlyBalanceDTO> createMonthlyBalance(@RequestBody MonthlyBalanceCreateDTO createDto) {
+        MonthlyBalance model = MonthlyBalanceMapper.toModelFromCreate(createDto);
+        return monthlyBalanceUseCase.createMonthlyBalance(model).map(MonthlyBalanceMapper::toDTO);
     }
 
-    @PutMapping("/{id}")
-    public Mono<MonthlyBalance> updateMonthlyBalance(@PathVariable("id") Long id, @RequestBody MonthlyBalance monthlyBalance) {
-        return monthlyBalanceUseCase.updateMonthlyBalance(id, monthlyBalance);
+    @PutMapping
+    public Mono<MonthlyBalanceDTO> updateMonthlyBalance(@RequestBody MonthlyBalanceUpdateDTO updateDto) {
+        MonthlyBalance model = MonthlyBalanceMapper.toModelFromUpdate(updateDto);
+        Long id = model.getId();
+        return monthlyBalanceUseCase.updateMonthlyBalance(id, model).map(MonthlyBalanceMapper::toDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -33,12 +40,12 @@ public class MonthlyBalanceController {
     }
 
     @GetMapping("/{id}")
-    public Mono<MonthlyBalance> getMonthlyBalanceById(@PathVariable("id") Long id) {
-        return monthlyBalanceUseCase.getMonthlyBalanceById(id);
+    public Mono<MonthlyBalanceDTO> getMonthlyBalanceById(@PathVariable("id") Long id) {
+        return monthlyBalanceUseCase.getMonthlyBalanceById(id).map(MonthlyBalanceMapper::toDTO);
     }
 
     @GetMapping
-    public Flux<MonthlyBalance> getAllMonthlyBalances() {
-        return monthlyBalanceUseCase.getAllMonthlyBalances();
+    public Flux<MonthlyBalanceDTO> getAllMonthlyBalances() {
+        return monthlyBalanceUseCase.getAllMonthlyBalances().map(MonthlyBalanceMapper::toDTO);
     }
 }

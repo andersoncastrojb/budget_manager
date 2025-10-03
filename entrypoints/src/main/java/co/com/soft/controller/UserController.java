@@ -1,5 +1,9 @@
 package co.com.soft.controller;
 
+import co.com.soft.dto.UserCreateDTO;
+import co.com.soft.dto.UserDTO;
+import co.com.soft.dto.UserUpdateDTO;
+import co.com.soft.mapper.UserMapper;
 import co.com.soft.model.User;
 import co.com.soft.usecase.UserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +22,18 @@ public class UserController {
     }
 
     @PostMapping
-    public Mono<User> createUser(@RequestBody User user) {
-        return userUseCase.createUser(user);
+    public Mono<UserDTO> createUser(@RequestBody UserCreateDTO createDto) {
+        User model = UserMapper.toModelFromCreate(createDto);
+        return userUseCase.createUser(model)
+                .map(UserMapper::toDTO);
     }
 
-    @PutMapping("/{id}")
-    public Mono<User> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
-        return userUseCase.updateUser(id, user);
+    @PutMapping
+    public Mono<UserDTO> updateUser(@RequestBody UserUpdateDTO updateDto) {
+        User model = UserMapper.toModelFromUpdate(updateDto);
+        Long id = model.getId();
+        return userUseCase.updateUser(id, model)
+                .map(UserMapper::toDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -33,12 +42,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Mono<User> getUserById(@PathVariable("id") Long id) {
-        return userUseCase.getUserById(id);
+    public Mono<UserDTO> getUserById(@PathVariable("id") Long id) {
+        return userUseCase.getUserById(id).map(UserMapper::toDTO);
     }
 
     @GetMapping
-    public Flux<User> getAllUsers() {
-        return userUseCase.getAllUsers();
+    public Flux<UserDTO> getAllUsers() {
+        return userUseCase.getAllUsers().map(UserMapper::toDTO);
     }
 }

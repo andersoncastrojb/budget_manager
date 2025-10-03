@@ -1,5 +1,9 @@
 package co.com.soft.controller;
 
+import co.com.soft.dto.IncomeCreateDTO;
+import co.com.soft.dto.IncomeDTO;
+import co.com.soft.dto.IncomeUpdateDTO;
+import co.com.soft.mapper.IncomeMapper;
 import co.com.soft.model.Income;
 import co.com.soft.usecase.IncomeUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +22,16 @@ public class IncomeController {
     }
 
     @PostMapping
-    public Mono<Income> createIncome(@RequestBody Income income) {
-        return incomeUseCase.createIncome(income);
+    public Mono<IncomeDTO> createIncome(@RequestBody IncomeCreateDTO createDto) {
+        Income model = IncomeMapper.toModelFromCreate(createDto);
+        return incomeUseCase.createIncome(model).map(IncomeMapper::toDTO);
     }
 
-    @PutMapping("/{id}")
-    public Mono<Income> updateIncome(@PathVariable("id") Long id, @RequestBody Income income) {
-        return incomeUseCase.updateIncome(id, income);
+    @PutMapping
+    public Mono<IncomeDTO> updateIncome(@RequestBody IncomeUpdateDTO updateDto) {
+        Income model = IncomeMapper.toModelFromUpdate(updateDto);
+        Long id = model.getId();
+        return incomeUseCase.updateIncome(id, model).map(IncomeMapper::toDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -33,12 +40,12 @@ public class IncomeController {
     }
 
     @GetMapping("/{id}")
-    public Mono<Income> getIncomeById(@PathVariable("id") Long id) {
-        return incomeUseCase.getIncomeById(id);
+    public Mono<IncomeDTO> getIncomeById(@PathVariable("id") Long id) {
+        return incomeUseCase.getIncomeById(id).map(IncomeMapper::toDTO);
     }
 
     @GetMapping
-    public Flux<Income> getAllIncomes() {
-        return incomeUseCase.getAllIncomes();
+    public Flux<IncomeDTO> getAllIncomes() {
+        return incomeUseCase.getAllIncomes().map(IncomeMapper::toDTO);
     }
 }

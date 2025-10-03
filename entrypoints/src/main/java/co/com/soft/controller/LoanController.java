@@ -1,5 +1,9 @@
 package co.com.soft.controller;
 
+import co.com.soft.dto.LoanCreateDTO;
+import co.com.soft.dto.LoanDTO;
+import co.com.soft.dto.LoanUpdateDTO;
+import co.com.soft.mapper.LoanMapper;
 import co.com.soft.model.Loan;
 import co.com.soft.usecase.LoanUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +22,16 @@ public class LoanController {
     }
 
     @PostMapping
-    public Mono<Loan> createLoan(@RequestBody Loan loan) {
-        return loanUseCase.createLoan(loan);
+    public Mono<LoanDTO> createLoan(@RequestBody LoanCreateDTO createDto) {
+        Loan model = LoanMapper.toModelFromCreate(createDto);
+        return loanUseCase.createLoan(model).map(LoanMapper::toDTO);
     }
 
-    @PutMapping("/{id}")
-    public Mono<Loan> updateLoan(@PathVariable("id") Long id, @RequestBody Loan loan) {
-        return loanUseCase.updateLoan(id, loan);
+    @PutMapping
+    public Mono<LoanDTO> updateLoan(@RequestBody LoanUpdateDTO updateDto) {
+        Loan model = LoanMapper.toModelFromUpdate(updateDto);
+        Long id = model.getId();
+        return loanUseCase.updateLoan(id, model).map(LoanMapper::toDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -33,12 +40,12 @@ public class LoanController {
     }
 
     @GetMapping("/{id}")
-    public Mono<Loan> getLoanById(@PathVariable("id") Long id) {
-        return loanUseCase.getLoanById(id);
+    public Mono<LoanDTO> getLoanById(@PathVariable("id") Long id) {
+        return loanUseCase.getLoanById(id).map(LoanMapper::toDTO);
     }
 
     @GetMapping
-    public Flux<Loan> getAllLoans() {
-        return loanUseCase.getAllLoans();
+    public Flux<LoanDTO> getAllLoans() {
+        return loanUseCase.getAllLoans().map(LoanMapper::toDTO);
     }
 }

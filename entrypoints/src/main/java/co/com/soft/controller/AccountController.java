@@ -1,5 +1,9 @@
 package co.com.soft.controller;
 
+import co.com.soft.dto.AccountCreateDTO;
+import co.com.soft.dto.AccountDTO;
+import co.com.soft.dto.AccountUpdateDTO;
+import co.com.soft.mapper.AccountMapper;
 import co.com.soft.model.Account;
 import co.com.soft.usecase.AccountUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +22,16 @@ public class AccountController {
     }
 
     @PostMapping
-    public Mono<Account> createAccount(@RequestBody Account account) {
-        return accountUseCase.createAccount(account);
+    public Mono<AccountDTO> createAccount(@RequestBody AccountCreateDTO createDto) {
+        Account model = AccountMapper.toModelFromCreate(createDto);
+        return accountUseCase.createAccount(model).map(AccountMapper::toDTO);
     }
 
-    @PutMapping("/{id}")
-    public Mono<Account> updateAccount(@PathVariable("id") Long id, @RequestBody Account account) {
-        return accountUseCase.updateAccount(id, account);
+    @PutMapping
+    public Mono<AccountDTO> updateAccount(@RequestBody AccountUpdateDTO updateDto) {
+        Account model = AccountMapper.toModelFromUpdate(updateDto);
+        Long id = model.getId();
+        return accountUseCase.updateAccount(id, model).map(AccountMapper::toDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -33,12 +40,12 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public Mono<Account> getAccountById(@PathVariable("id") Long id) {
-        return accountUseCase.getAccountById(id);
+    public Mono<AccountDTO> getAccountById(@PathVariable("id") Long id) {
+        return accountUseCase.getAccountById(id).map(AccountMapper::toDTO);
     }
 
     @GetMapping
-    public Flux<Account> getAllAccounts() {
-        return accountUseCase.getAllAccounts();
+    public Flux<AccountDTO> getAllAccounts() {
+        return accountUseCase.getAllAccounts().map(AccountMapper::toDTO);
     }
 }
