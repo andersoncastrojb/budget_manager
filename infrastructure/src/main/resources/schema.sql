@@ -22,12 +22,12 @@ CREATE TABLE accounts (
 
 CREATE TABLE incomes (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    id_user INT,
+    id_account BIGINT,
     type VARCHAR(64),
     value BIGINT,
     description VARCHAR(512),
     date TIMESTAMP,
-    FOREIGN KEY (id_user) REFERENCES users(id)
+    FOREIGN KEY (id_account) REFERENCES accounts(id)
 );
 
 

@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 public class Income {
     private Long id;
-    private Long idUser;
+    private Long idAccount;
     private IncomeType type;
     private Long value;
     private String description;

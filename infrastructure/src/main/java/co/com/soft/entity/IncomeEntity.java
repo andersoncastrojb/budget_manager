@@ -18,8 +18,8 @@ public class IncomeEntity {
     @Id
     private Long id;
 
-    @Column("id_user")
-    private Long idUser;
+    @Column("id_account")
+    private Long idAccount;
     private IncomeType type;
     private Long value;
     private String description;

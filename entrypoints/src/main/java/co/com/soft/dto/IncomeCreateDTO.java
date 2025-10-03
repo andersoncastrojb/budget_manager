@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class IncomeCreateDTO {
-    private Long idUser;
+    private Long idAccount;
     private IncomeType type;
     private Long value;
     private String description;

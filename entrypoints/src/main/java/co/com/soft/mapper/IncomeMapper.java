@@ -14,19 +14,19 @@ public final class IncomeMapper {
     public static Income toModelFromCreate(IncomeCreateDTO dto) {
         if (dto == null) return null;
         LocalDateTime date = dto.getDate() == null ? null : LocalDateTime.parse(dto.getDate(), FMT);
-        return new Income(null, dto.getIdUser(), dto.getType(), dto.getValue(), dto.getDescription(), date);
+    return new Income(null, dto.getIdAccount(), dto.getType(), dto.getValue(), dto.getDescription(), date);
     }
 
     public static Income toModelFromUpdate(IncomeUpdateDTO dto) {
         if (dto == null) return null;
         LocalDateTime date = dto.getDate() == null ? null : LocalDateTime.parse(dto.getDate(), FMT);
-        return new Income(dto.getId(), dto.getIdUser(), dto.getType(), dto.getValue(), dto.getDescription(), date);
+    return new Income(dto.getId(), dto.getIdAccount(), dto.getType(), dto.getValue(), dto.getDescription(), date);
     }
 
     public static IncomeDTO toDTO(Income model) {
         if (model == null) return null;
         String date = model.getDate() == null ? null : model.getDate().format(FMT);
         String type = model.getType() == null ? null : model.getType().name();
-        return new IncomeDTO(model.getId(), model.getIdUser(), type, model.getValue(), model.getDescription(), date);
+        return new IncomeDTO(model.getId(), model.getIdAccount(), type, model.getValue(), model.getDescription(), date);
     }
 }

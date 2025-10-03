@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 public class IncomeUpdateDTO {
     private Long id;
-    private Long idUser;
+    private Long idAccount;
     private IncomeType type;
     private Long value;
     private String description;
