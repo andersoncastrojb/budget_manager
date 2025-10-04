@@ -15,5 +15,5 @@ public class IncomeDTO {
     private String type;
     private Long value;
     private String description;
-    private String date; // ISO string
+    private String date;
 }

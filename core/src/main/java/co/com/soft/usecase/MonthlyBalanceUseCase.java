@@ -5,5 +5,5 @@ import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 
 public interface MonthlyBalanceUseCase {
-    Mono<MonthlyBalance> getMonthlyBalanceById(Long id);
+    Mono<MonthlyBalance> processMonthlyBalance(Long userId, Integer month, Integer year);
 }

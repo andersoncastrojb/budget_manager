@@ -17,8 +17,11 @@ public class MonthlyBalanceController {
         this.monthlyBalanceUseCase = monthlyBalanceUseCase;
     }
 
-    @GetMapping("/{id}")
-    public Mono<MonthlyBalanceDTO> getMonthlyBalanceById(@PathVariable("id") Long id) {
-        return monthlyBalanceUseCase.getMonthlyBalanceById(id).map(MonthlyBalanceMapper::toDTO);
+    @PostMapping("/process")
+    public Mono<MonthlyBalanceDTO> processMonthlyBalance(@RequestParam("userId") Long userId,
+                                                         @RequestParam("month") Integer month,
+                                                         @RequestParam("year") Integer year) {
+        return monthlyBalanceUseCase.processMonthlyBalance(userId, month, year)
+                .map(MonthlyBalanceMapper::toDTO);
     }
 }
