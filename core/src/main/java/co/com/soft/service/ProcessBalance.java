@@ -46,7 +46,7 @@ public class ProcessBalance implements MonthlyBalanceUseCase {
         this.monthlyBalanceRepository = monthlyBalanceRepository;
     }
 
-    @Autowired
+    @Override
     public Mono<MonthlyBalance> processMonthlyBalance(Long userId, Integer month, Integer year) {
         LocalDateTime start = LocalDateTime.of(year, month, 1, 0, 0);
         LocalDateTime end = start.with(TemporalAdjusters.lastDayOfMonth()).withHour(23).withMinute(59).withSecond(59);
