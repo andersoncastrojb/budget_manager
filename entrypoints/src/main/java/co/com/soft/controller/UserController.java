@@ -37,12 +37,12 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteUser(@PathVariable("id") Long id) {
+    public Mono<Void> deleteUser(@PathVariable Long id) {
         return userUseCase.deleteUser(id);
     }
 
     @GetMapping("/{id}")
-    public Mono<UserDTO> getUserById(@PathVariable("id") Long id) {
+    public Mono<UserDTO> getUserById(@PathVariable Long id) {
         return userUseCase.getUserById(id).map(UserMapper::toDTO);
     }
 

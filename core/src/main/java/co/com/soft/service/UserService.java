@@ -13,30 +13,28 @@ import reactor.core.publisher.Flux;
 @Service
 public class UserService implements UserUseCase {
     private final UserRepository userRepository;
-    private final UserAdapter userAdapter;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserAdapter userAdapter) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userAdapter = userAdapter;
     }
 
     @Override
     public Mono<User> createUser(User user) {
-        UserEntity entity = userAdapter.toEntity(user);
-    return userRepository.save(entity)
-        .map(entityResult -> userAdapter.toModel(entityResult));
+        UserEntity entity = UserAdapter.toEntity(user);
+        return userRepository.save(entity)
+                .map(UserAdapter::toModel);
     }
 
     @Override
     public Mono<User> updateUser(Long id, User user) {
         return userRepository.findById(id)
                 .flatMap(existing -> {
-                    UserEntity updated = userAdapter.toEntity(user);
+                    UserEntity updated = UserAdapter.toEntity(user);
                     updated.setId(id);
                     return userRepository.save(updated);
                 })
-                .map(entityResult -> userAdapter.toModel(entityResult));
+                .map(UserAdapter::toModel);
     }
 
     @Override
@@ -46,13 +44,13 @@ public class UserService implements UserUseCase {
 
     @Override
     public Mono<User> getUserById(Long id) {
-    return userRepository.findById(id)
-        .map(entityResult -> userAdapter.toModel(entityResult));
+        return userRepository.findById(id)
+                .map(UserAdapter::toModel);
     }
 
     @Override
     public Flux<User> getAllUsers() {
-    return userRepository.findAll()
-        .map(entityResult -> userAdapter.toModel(entityResult));
+        return userRepository.findAll()
+                .map(UserAdapter::toModel);
     }
 }

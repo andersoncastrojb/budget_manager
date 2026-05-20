@@ -74,8 +74,7 @@ public class ProcessBalance implements MonthlyBalanceUseCase {
                     LocalDateTime s = fe.getStartDate();
                     LocalDateTime e = fe.getEndDate();
                     if (s != null && s.isAfter(end)) return false;
-                    if (e != null && e.isBefore(start)) return false;
-                    return true;
+                    return e == null || !e.isBefore(start);
                 })
                 .collectList();
 
@@ -93,7 +92,7 @@ public class ProcessBalance implements MonthlyBalanceUseCase {
                     for (Account acc : accounts) {
                         long accIncomes = incomes.stream().filter(i -> i.getIdAccount() != null && i.getIdAccount().equals(acc.getId()))
                                 .mapToLong(i -> i.getValue() == null ? 0L : i.getValue()).sum();
-                        Long bal = acc.getBalance() == null ? 0L : acc.getBalance();
+                        long bal = acc.getBalance() == null ? 0L : acc.getBalance();
                         acc.setBalance(bal + accIncomes);
                     }
 
@@ -113,7 +112,7 @@ public class ProcessBalance implements MonthlyBalanceUseCase {
                         int n = Math.max(1, accounts.size());
                         long per = totalDeductions / n;
                         for (Account acc : accounts) {
-                            Long bal = acc.getBalance() == null ? 0L : acc.getBalance();
+                            long bal = acc.getBalance() == null ? 0L : acc.getBalance();
                             acc.setBalance(bal - per);
                         }
                     }

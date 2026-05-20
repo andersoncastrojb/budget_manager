@@ -13,30 +13,28 @@ import reactor.core.publisher.Flux;
 @Service
 public class LoanService implements LoanUseCase {
     private final LoanRepository loanRepository;
-    private final LoanAdapter loanAdapter;
 
     @Autowired
-    public LoanService(LoanRepository loanRepository, LoanAdapter loanAdapter) {
+    public LoanService(LoanRepository loanRepository) {
         this.loanRepository = loanRepository;
-        this.loanAdapter = loanAdapter;
     }
 
     @Override
     public Mono<Loan> createLoan(Loan loan) {
-        LoanEntity entity = loanAdapter.toEntity(loan);
-    return loanRepository.save(entity)
-        .map(entityResult -> loanAdapter.toModel(entityResult));
+        LoanEntity entity = LoanAdapter.toEntity(loan);
+        return loanRepository.save(entity)
+                .map(LoanAdapter::toModel);
     }
 
     @Override
     public Mono<Loan> updateLoan(Long id, Loan loan) {
         return loanRepository.findById(id)
                 .flatMap(existing -> {
-                    LoanEntity updated = loanAdapter.toEntity(loan);
+                    LoanEntity updated = LoanAdapter.toEntity(loan);
                     updated.setId(id);
                     return loanRepository.save(updated);
                 })
-                .map(entityResult -> loanAdapter.toModel(entityResult));
+                .map(LoanAdapter::toModel);
     }
 
     @Override
@@ -46,13 +44,13 @@ public class LoanService implements LoanUseCase {
 
     @Override
     public Mono<Loan> getLoanById(Long id) {
-    return loanRepository.findById(id)
-        .map(entityResult -> loanAdapter.toModel(entityResult));
+        return loanRepository.findById(id)
+                .map(LoanAdapter::toModel);
     }
 
     @Override
     public Flux<Loan> getAllLoans() {
-    return loanRepository.findAll()
-        .map(entityResult -> loanAdapter.toModel(entityResult));
+        return loanRepository.findAll()
+                .map(LoanAdapter::toModel);
     }
 }

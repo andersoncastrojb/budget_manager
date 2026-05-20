@@ -13,30 +13,28 @@ import reactor.core.publisher.Flux;
 @Service
 public class FixedExpenseService implements FixedExpenseUseCase {
     private final FixedExpenseRepository fixedExpenseRepository;
-    private final FixedExpenseAdapter fixedExpenseAdapter;
 
     @Autowired
-    public FixedExpenseService(FixedExpenseRepository fixedExpenseRepository, FixedExpenseAdapter fixedExpenseAdapter) {
+    public FixedExpenseService(FixedExpenseRepository fixedExpenseRepository) {
         this.fixedExpenseRepository = fixedExpenseRepository;
-        this.fixedExpenseAdapter = fixedExpenseAdapter;
     }
 
     @Override
     public Mono<FixedExpense> createFixedExpense(FixedExpense fixedExpense) {
-        FixedExpenseEntity entity = fixedExpenseAdapter.toEntity(fixedExpense);
-    return fixedExpenseRepository.save(entity)
-        .map(entityResult -> fixedExpenseAdapter.toModel(entityResult));
+        FixedExpenseEntity entity = FixedExpenseAdapter.toEntity(fixedExpense);
+        return fixedExpenseRepository.save(entity)
+                .map(FixedExpenseAdapter::toModel);
     }
 
     @Override
     public Mono<FixedExpense> updateFixedExpense(Long id, FixedExpense fixedExpense) {
         return fixedExpenseRepository.findById(id)
                 .flatMap(existing -> {
-                    FixedExpenseEntity updated = fixedExpenseAdapter.toEntity(fixedExpense);
+                    FixedExpenseEntity updated = FixedExpenseAdapter.toEntity(fixedExpense);
                     updated.setId(id);
                     return fixedExpenseRepository.save(updated);
                 })
-                .map(entityResult -> fixedExpenseAdapter.toModel(entityResult));
+                .map(FixedExpenseAdapter::toModel);
     }
 
     @Override
@@ -46,13 +44,13 @@ public class FixedExpenseService implements FixedExpenseUseCase {
 
     @Override
     public Mono<FixedExpense> getFixedExpenseById(Long id) {
-    return fixedExpenseRepository.findById(id)
-        .map(entityResult -> fixedExpenseAdapter.toModel(entityResult));
+        return fixedExpenseRepository.findById(id)
+                .map(FixedExpenseAdapter::toModel);
     }
 
     @Override
     public Flux<FixedExpense> getAllFixedExpenses() {
-    return fixedExpenseRepository.findAll()
-        .map(entityResult -> fixedExpenseAdapter.toModel(entityResult));
+        return fixedExpenseRepository.findAll()
+                .map(FixedExpenseAdapter::toModel);
     }
 }

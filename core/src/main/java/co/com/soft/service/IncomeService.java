@@ -13,30 +13,28 @@ import reactor.core.publisher.Flux;
 @Service
 public class IncomeService implements IncomeUseCase {
     private final IncomeRepository incomeRepository;
-    private final IncomeAdapter incomeAdapter;
 
     @Autowired
-    public IncomeService(IncomeRepository incomeRepository, IncomeAdapter incomeAdapter) {
+    public IncomeService(IncomeRepository incomeRepository) {
         this.incomeRepository = incomeRepository;
-        this.incomeAdapter = incomeAdapter;
     }
 
     @Override
     public Mono<Income> createIncome(Income income) {
-        IncomeEntity entity = incomeAdapter.toEntity(income);
-    return incomeRepository.save(entity)
-        .map(entityResult -> incomeAdapter.toModel(entityResult));
+        IncomeEntity entity = IncomeAdapter.toEntity(income);
+        return incomeRepository.save(entity)
+                .map(IncomeAdapter::toModel);
     }
 
     @Override
     public Mono<Income> updateIncome(Long id, Income income) {
         return incomeRepository.findById(id)
                 .flatMap(existing -> {
-                    IncomeEntity updated = incomeAdapter.toEntity(income);
+                    IncomeEntity updated = IncomeAdapter.toEntity(income);
                     updated.setId(id);
                     return incomeRepository.save(updated);
                 })
-                .map(entityResult -> incomeAdapter.toModel(entityResult));
+                .map(IncomeAdapter::toModel);
     }
 
     @Override
@@ -46,13 +44,13 @@ public class IncomeService implements IncomeUseCase {
 
     @Override
     public Mono<Income> getIncomeById(Long id) {
-    return incomeRepository.findById(id)
-        .map(entityResult -> incomeAdapter.toModel(entityResult));
+        return incomeRepository.findById(id)
+                .map(IncomeAdapter::toModel);
     }
 
     @Override
     public Flux<Income> getAllIncomes() {
-    return incomeRepository.findAll()
-        .map(entityResult -> incomeAdapter.toModel(entityResult));
+        return incomeRepository.findAll()
+                .map(IncomeAdapter::toModel);
     }
 }
