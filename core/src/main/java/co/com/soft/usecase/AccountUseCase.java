@@ -10,4 +10,5 @@ public interface AccountUseCase {
     Mono<Void> deleteAccount(Long id);
     Mono<Account> getAccountById(Long id);
     Flux<Account> getAllAccounts();
+    Flux<Account> getAccountsByUserId(Long userId);
 }

@@ -10,4 +10,5 @@ public interface FixedExpenseUseCase {
     Mono<Void> deleteFixedExpense(Long id);
     Mono<FixedExpense> getFixedExpenseById(Long id);
     Flux<FixedExpense> getAllFixedExpenses();
+    Flux<FixedExpense> getFixedExpensesByUserId(Long userId);
 }

@@ -53,4 +53,10 @@ public class LoanService implements LoanUseCase {
         return loanRepository.findAll()
                 .map(LoanAdapter::toModel);
     }
+
+    @Override
+    public Flux<Loan> getLoansByUserId(Long userId) {
+        return loanRepository.findAllByUserId(userId)
+                .map(LoanAdapter::toModel);
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import co.com.soft.dto.UserDashboardDTO;
 
 @RestController
 @RequestMapping("/users")
@@ -37,17 +38,23 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteUser(@PathVariable Long id) {
+    public Mono<Void> deleteUser(@PathVariable("id") Long id) {
         return userUseCase.deleteUser(id);
     }
 
     @GetMapping("/{id}")
-    public Mono<UserDTO> getUserById(@PathVariable Long id) {
+    public Mono<UserDTO> getUserById(@PathVariable("id") Long id) {
         return userUseCase.getUserById(id).map(UserMapper::toDTO);
     }
 
     @GetMapping
     public Flux<UserDTO> getAllUsers() {
         return userUseCase.getAllUsers().map(UserMapper::toDTO);
+    }
+
+    @GetMapping("/dashboard/{id}")
+    public Mono<UserDashboardDTO> getUserDashboard(@PathVariable("id") Long id) {
+        return userUseCase.getUserDashboard(id)
+                .map(UserMapper::toDashboardDTO);
     }
 }

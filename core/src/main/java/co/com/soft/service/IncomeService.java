@@ -53,4 +53,11 @@ public class IncomeService implements IncomeUseCase {
         return incomeRepository.findAll()
                 .map(IncomeAdapter::toModel);
     }
+
+    @Override
+    public Flux<Income> getIncomesByUserId(Long userId) {
+        return incomeRepository.findAllByUserId(userId)
+                .map(IncomeAdapter::toModel);
+
+    }
 }

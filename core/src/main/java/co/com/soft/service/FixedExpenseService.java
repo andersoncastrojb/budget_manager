@@ -53,4 +53,10 @@ public class FixedExpenseService implements FixedExpenseUseCase {
         return fixedExpenseRepository.findAll()
                 .map(FixedExpenseAdapter::toModel);
     }
+
+    @Override
+    public Flux<FixedExpense> getFixedExpensesByUserId(Long userId) {
+        return fixedExpenseRepository.findAllByUserId(userId)
+                .map(FixedExpenseAdapter::toModel);
+    }
 }

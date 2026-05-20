@@ -10,4 +10,5 @@ public interface LoanUseCase {
     Mono<Void> deleteLoan(Long id);
     Mono<Loan> getLoanById(Long id);
     Flux<Loan> getAllLoans();
+    Flux<Loan> getLoansByUserId(Long userId);
 }

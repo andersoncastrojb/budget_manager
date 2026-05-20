@@ -35,12 +35,12 @@ public class IncomeController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteIncome(@PathVariable Long id) {
+    public Mono<Void> deleteIncome(@PathVariable("id") Long id) {
         return incomeUseCase.deleteIncome(id);
     }
 
     @GetMapping("/{id}")
-    public Mono<IncomeDTO> getIncomeById(@PathVariable Long id) {
+    public Mono<IncomeDTO> getIncomeById(@PathVariable("id") Long id) {
         return incomeUseCase.getIncomeById(id).map(IncomeMapper::toDTO);
     }
 

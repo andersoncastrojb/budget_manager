@@ -1,6 +1,7 @@
 package co.com.soft.usecase;
 
 import co.com.soft.model.User;
+import co.com.soft.model.UserDashboard;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 
@@ -10,4 +11,5 @@ public interface UserUseCase {
     Mono<Void> deleteUser(Long id);
     Mono<User> getUserById(Long id);
     Flux<User> getAllUsers();
+    Mono<UserDashboard> getUserDashboard(Long id);
 }

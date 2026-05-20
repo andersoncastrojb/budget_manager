@@ -35,12 +35,12 @@ public class FixedExpenseController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteFixedExpense(@PathVariable Long id) {
+    public Mono<Void> deleteFixedExpense(@PathVariable("id") Long id) {
         return fixedExpenseUseCase.deleteFixedExpense(id);
     }
 
     @GetMapping("/{id}")
-    public Mono<FixedExpenseDTO> getFixedExpenseById(@PathVariable Long id) {
+    public Mono<FixedExpenseDTO> getFixedExpenseById(@PathVariable("id") Long id) {
         return fixedExpenseUseCase.getFixedExpenseById(id).map(FixedExpenseMapper::toDTO);
     }
 

@@ -10,4 +10,7 @@ import reactor.core.publisher.Flux;
 public interface IncomeRepository extends ReactiveCrudRepository<IncomeEntity, Long> {
     @Query("SELECT * FROM incomes WHERE id_account = :idAccount")
     Flux<IncomeEntity> findAllByAccountId(Long idAccount);
+
+    @Query("SELECT i.* FROM incomes i INNER JOIN accounts a ON i.id_account = a.id WHERE a.id_user = :userId")
+    Flux<IncomeEntity> findAllByUserId(Long userId);
 }

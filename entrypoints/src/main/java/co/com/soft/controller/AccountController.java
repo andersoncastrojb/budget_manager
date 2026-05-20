@@ -35,12 +35,12 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteAccount(@PathVariable Long id) {
+    public Mono<Void> deleteAccount(@PathVariable("id") Long id) {
         return accountUseCase.deleteAccount(id);
     }
 
     @GetMapping("/{id}")
-    public Mono<AccountDTO> getAccountById(@PathVariable Long id) {
+    public Mono<AccountDTO> getAccountById(@PathVariable("id") Long id) {
         return accountUseCase.getAccountById(id).map(AccountMapper::toDTO);
     }
 

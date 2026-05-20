@@ -53,4 +53,10 @@ public class AccountService implements AccountUseCase {
         return accountRepository.findAll()
                 .map(AccountAdapter::toModel);
     }
+
+    @Override
+    public Flux<Account> getAccountsByUserId(Long userId) {
+        return accountRepository.findAllByUserId(userId)
+                .map(AccountAdapter::toModel);
+    }
 }

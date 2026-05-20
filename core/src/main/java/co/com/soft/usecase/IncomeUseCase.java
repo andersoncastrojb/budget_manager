@@ -10,4 +10,5 @@ public interface IncomeUseCase {
     Mono<Void> deleteIncome(Long id);
     Mono<Income> getIncomeById(Long id);
     Flux<Income> getAllIncomes();
+    Flux<Income> getIncomesByUserId(Long userId);
 }

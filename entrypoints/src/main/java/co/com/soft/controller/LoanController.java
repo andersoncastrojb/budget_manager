@@ -35,12 +35,12 @@ public class LoanController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteLoan(@PathVariable Long id) {
+    public Mono<Void> deleteLoan(@PathVariable("id") Long id) {
         return loanUseCase.deleteLoan(id);
     }
 
     @GetMapping("/{id}")
-    public Mono<LoanDTO> getLoanById(@PathVariable Long id) {
+    public Mono<LoanDTO> getLoanById(@PathVariable("id") Long id) {
         return loanUseCase.getLoanById(id).map(LoanMapper::toDTO);
     }
 
