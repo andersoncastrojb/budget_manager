@@ -1,6 +1,6 @@
 spring:
   r2dbc:
-    url: "r2dbc:mysql://root:admin@localhost:3306/budget_manager?ssl=true"
+    url: ${R2DBC_URL:r2dbc:mysql://root:admin@localhost:3306/budget_manager?ssl=true}
   sql:
     init:
       mode: never
