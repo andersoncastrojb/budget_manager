@@ -12,11 +12,11 @@ COPY entrypoints/build.gradle entrypoints/
 COPY infrastructure/build.gradle infrastructure/
 COPY utilities/build.gradle utilities/
 
-# Grant execution rights to the Gradle wrapper
-RUN chmod +x ./gradlew
-
 # Copy the rest of the source code
 COPY . .
+
+# Grant execution rights to the Gradle wrapper
+RUN chmod +x ./gradlew
 
 # Build the executable jar for the configuration module
 RUN ./gradlew :configuration:bootJar -x test --no-daemon
